@@ -1,0 +1,32 @@
+node {
+    stage ('SCM checkout') {
+        git 'https://github.com/urasai212/pipeline-script.git'
+    }
+    stage ('Build Docker Image') {
+        
+        sh '''
+        containerid=`docker ps -a -q --filter name="cloudseals-apache"`
+        docker rm -f $containerid
+        docker rmi -f cloudseals/apache
+        docker build -t cloudseals/apache .
+        '''
+    }
+    stage ('Docker container') {
+        sh 'docker run -itd --name "cloudseals-apache" -p 8080:80 cloudseals/apache'
+    }
+    stage ('Docker Smoke Test') {
+        sh '''
+        res=`curl -Is "http://localhost:8080/" | head -1`
+        if [ $res -eq "HTTP/1.1 200 OK"]
+        then
+            echo "Pushing docker image to docker registry...!"
+            // docker commit c16378f943fe cloudseals-apache
+            // docker tag cloudseals-apache registry-host:5000/myadmin/cloudseals-apache
+            // docker push registry-host:5000/myadmin/cloudseals-apache
+        else
+            echo "Smoke test failed, please verify your docker file and the application code!"
+        fi
+        '''
+    }
+}
+
