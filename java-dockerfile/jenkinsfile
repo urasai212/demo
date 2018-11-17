@@ -6,11 +6,15 @@ node {
         
         sh '''
         containerid=`docker ps -a -q --filter name="cloudseals-tomcat"`
-	if [[ -z "$containerid" ]];
-	then
-		docker rm -f $containerid
-	fi
-	docker rmi -f cloudseals/tomcat
+	    if [[ $containerid -ne "" ]];
+	    then
+		    docker rm -f $containerid
+	    fi
+	    imageid=`docker images -q cloudseals/tomcat`
+	    if [[ $imageid -ne "" ]];
+	    then
+	        docker rmi -f cloudseals/tomcat
+	    fi
         docker build -t cloudseals/tomcat .
         '''
     }
