@@ -6,11 +6,11 @@ node {
         
         sh '''
         containerid=`docker ps -a -q --filter name="cloudseals-apache"`
-		if [$containerid -ne $null]
-		then
-			docker rm -f $containerid
-		fi
-		docker rmi -f cloudseals/apache
+	if [ -z $containerid]
+	then
+		docker rm -f $containerid
+	fi
+	docker rmi -f cloudseals/apache
         docker build -t cloudseals/apache .
         '''
     }
