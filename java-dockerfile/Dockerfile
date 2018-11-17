@@ -1,5 +1,5 @@
 # Dockerfile
-FROM demo/maven:3.3-jdk-8
+FROM openjdk:8-jdk
 MAINTAINER Author <masoodali.mohammad@gmail.com>
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
