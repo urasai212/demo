@@ -15,7 +15,7 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
  	rm apache-tomcat-*.tar.gz && \
  	mv apache-tomcat* tomcat
 
-ADD ./tomcat_user.sh /tomcat_user.sh
+ADD ./create_tomcat_user.sh /create_tomcat_user.sh
 RUN mkdir /etc/service/tomcat
 ADD ./run_tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /*.sh
