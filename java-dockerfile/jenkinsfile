@@ -6,20 +6,31 @@ node {
         
         sh '''
         containerid=`docker ps -a -q --filter name="cloudseals-tomcat"`
-	    if [[ $containerid -ne "" ]];
+	    if [[ ! -z "$containerid" ]]
 	    then
 		    docker rm -f $containerid
 	    fi
 	    imageid=`docker images -q cloudseals/tomcat`
-	    if [[ $imageid -ne "" ]];
+	    if [[ ! -z "$imageid" ]]
 	    then
 	        docker rmi -f cloudseals/tomcat
 	    fi
-        docker build -t cloudseals/tomcat .
+	    cd java-dockerfile
+	    docker build -t cloudseals/tomcat .
         '''
     }
     stage ('Docker container') {
-        sh 'docker run -itd --name "cloudseals-tomcat" -p 8080:80 cloudseals/tomcat'
+        
+        sh '''
+        
+        containerid=`docker ps -a -q --filter name="cloudseals-tomcat"`
+	    if [[ ! -z "$containerid" ]]
+	    then
+		    docker rm -f $containerid
+	    fi
+        docker run -itd --name "cloudseals-tomcat" -p 8080:8080 -v "$PWD":/app cloudseals/tomcat bash -c "cp ./springwebapp.war /tomcat/webapps/ & /tomcat/bin/catalina.sh run
+        
+        '''
     }
     stage ('Docker Smoke Test') {
         sh '''
