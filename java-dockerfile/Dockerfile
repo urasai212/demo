@@ -15,9 +15,9 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
  	rm apache-tomcat-*.tar.gz && \
  	mv apache-tomcat* tomcat
 
-ADD /home/jenkins/workspace/java-project-pipeline/java-dockerfile/tomcat_user.sh /tomcat_user.sh
+ADD ./tomcat_user.sh /tomcat_user.sh
 RUN mkdir /etc/service/tomcat
-ADD /home/jenkins/workspace/java-project-pipeline/java-dockerfile/run_tomcat.sh /etc/service/tomcat/run
+ADD ./run_tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /*.sh
 RUN chmod +x /etc/service/tomcat/run
 
