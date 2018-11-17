@@ -2,7 +2,7 @@
 FROM openjdk:8-jdk
 MAINTAINER Author <masoodali.mohammad@gmail.com>
 RUN apt-get update && \
-    apt-get install -yq --no-install-recommends tomcat wget pwgen ca-certificates && \
+    apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 ENV TOMCAT_MAJOR_VERSION 8
@@ -16,7 +16,7 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
  	mv apache-tomcat* tomcat
 
 ADD ./create_tomcat_user.sh /create_tomcat_user.sh
-RUN mkdir /etc/service/tomcat
+RUN mkdir -p /etc/service/tomcat
 ADD ./run_tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /*.sh
 RUN chmod +x /etc/service/tomcat/run
