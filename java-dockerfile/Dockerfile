@@ -1,7 +1,6 @@
 # Dockerfile
 FROM openjdk:8-jdk
 MAINTAINER Author <masoodali.mohammad@gmail.com>
-WORKDIR $WORKSPACE/java-dockerfile
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
     apt-get clean && \
@@ -16,9 +15,9 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
  	rm apache-tomcat-*.tar.gz && \
  	mv apache-tomcat* tomcat
 
-ADD tomcat_user.sh /tomcat_user.sh
+ADD /home/jenkins/workspace/java-project-pipeline/java-dockerfile/tomcat_user.sh /tomcat_user.sh
 RUN mkdir /etc/service/tomcat
-ADD run_tomcat.sh /etc/service/tomcat/run
+ADD /home/jenkins/workspace/java-project-pipeline/java-dockerfile/run_tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /*.sh
 RUN chmod +x /etc/service/tomcat/run
 
