@@ -6,7 +6,7 @@ node {
         
         sh '''
         containerid=`docker ps -a -q --filter name="cloudseals-apache"`
-	if [ -z $containerid]
+	if [[ -z "$containerid" ]];
 	then
 		docker rm -f $containerid
 	fi
