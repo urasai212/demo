@@ -122,7 +122,7 @@
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
             
-            <Context path="" docBase="cloudseals-webworld.war" debug="0" reloadable="true"></Context>
+            <Context path="" docBase="examples/websocket/snake.xhtml" debug="0" reloadable="true"></Context>
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
