@@ -21,4 +21,4 @@ ADD ./run_tomcat.sh /etc/service/tomcat/run
 RUN chmod +x /*.sh
 RUN chmod +x /etc/service/tomcat/run
 
-EXPOSE 8080
+EXPOSE 8082
